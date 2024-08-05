@@ -12,11 +12,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode; 
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo header com menu. */}
+        {children}
+      </body>
+      {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo rodapé */}
     </html>
   );
 }
