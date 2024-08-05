@@ -4,13 +4,11 @@
 
 #### [x] Seeding do banco de dados (Upload de dados)
 
-#### [] Introdução ao Next.js
+#### [x] Introdução ao Next.js
 
-#### [] Tailwind e Shadcn/ui
+#### [x] Tailwind e Shadcn/ui
 
 #### [] Git Hooks
-
-#### []
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

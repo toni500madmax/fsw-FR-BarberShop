@@ -1,7 +1,11 @@
+// Determinação de renderização parcial no client side, 
+// isso permite o dinamismo e hooks do React.
 "use client";
 
-import Image from "next/image";
+// Shadcn/ui
 import { Button } from "./_components/ui/button";
+
+const name = "teste eslint"
 
 export default function Home() {
   return (
