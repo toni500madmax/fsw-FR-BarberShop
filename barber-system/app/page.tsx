@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
     <h1 className="text-red-700 py-3 px-5">Hello Next.js</h1>
-    <Button>Button Shadcn</Button>
+    <Button >Button Shadcn</Button>
     </>
   );
 }
