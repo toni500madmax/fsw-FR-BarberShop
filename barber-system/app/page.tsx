@@ -5,8 +5,6 @@
 // Shadcn/ui
 import { Button } from "./_components/ui/button";
 
-const name = "teste eslint"
-
 export default function Home() {
   return (
     <>
