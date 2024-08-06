@@ -7,21 +7,31 @@ import { SearchIcon } from "lucide-react";
 
 // Components
 import Header from "./_components/header";
-
-// O next.js possui 4 componentes otimizados.
-import Image from "next/image";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import { Card, CardContent } from "./_components/ui/card";
-import { Badge } from "./_components/ui/badge";
 import { Avatar } from "./_components/ui/avatar";
+import { Badge } from "./_components/ui/badge";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
-export default function Home() {
+// O next.js possui 4 componentes otimizados.
+import Image from "next/image";
+
+// Banco de dados
+import { db } from "./_lib/prisma";
+import BarbershopItem from "./_components/barbershop-item";
+
+/* 
+ToDo: Implementar sistema de avaliação de barbearias.
+*/
+
+const Home = async () => {
+   // conexão com o banco de dados
+   const barbershop = await db.barbershop.findMany({});
+
    return (
       <>
          <Header />
-
          {/* Texto */}
          <div className="p-5">
             <h2 className="text-xl font-bold">Olá, Felipe!</h2>
@@ -46,7 +56,11 @@ export default function Home() {
             </div>
 
             {/* Agendamento */}
-            <Card className="mt-6">
+            <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
+               Agendamentos
+            </h2>
+
+            <Card>
                <CardContent className="flex justify-between p-0">
                   {/* Esquerda */}
                   <div className="flex flex-col gap-2 py-5 pl-5">
@@ -67,7 +81,19 @@ export default function Home() {
                   </div>
                </CardContent>
             </Card>
+
+            <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
+               Recomendados
+            </h2>
+            {/* com uma classe do webkit que some com a barra de scroll */}
+            <div className="[&:: -webkit-scrollbar]:hidden flex gap-4 overflow-auto">
+               {barbershop.map((barbershop) => (
+                  <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+               ))}
+            </div>
          </div>
       </>
    );
-}
+};
+
+export default Home;
