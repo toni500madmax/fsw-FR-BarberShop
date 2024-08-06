@@ -29,6 +29,12 @@ const Home = async () => {
    // conexão com o banco de dados
    const barbershop = await db.barbershop.findMany({});
 
+   const popularBarbershops = await db.barbershop.findMany({
+      orderBy: {
+         name: "desc",
+      },
+   });
+
    return (
       <>
          <Header />
@@ -45,7 +51,60 @@ const Home = async () => {
                </Button>
             </div>
 
-            {/* Imagem */}
+            {/* Ícones de busca rápida */}
+            <div className="[&:: -webkit-scrollbar]:hidden mt-6 flex gap-3 overflow-x-scroll">
+               <Button>
+                  <Image
+                     src="/cabelo.svg"
+                     width={16}
+                     height={16}
+                     alt="Cabelo"
+                  />{" "}
+                  Cabelo
+               </Button>
+               <Button>
+                  <Image src="/barba.svg" width={16} height={16} alt="Barba" />{" "}
+                  Barba
+               </Button>
+               <Button>
+                  <Image
+                     src="/acabamento.svg"
+                     width={16}
+                     height={16}
+                     alt="Acabamento"
+                  />{" "}
+                  Acabamento
+               </Button>
+               <Button>
+                  <Image
+                     src="/hidratacao.svg"
+                     width={16}
+                     height={16}
+                     alt="Hidratação"
+                  />{" "}
+                  Hidratação
+               </Button>
+               <Button>
+                  <Image
+                     src="/sobrancelha.svg"
+                     width={16}
+                     height={16}
+                     alt="Sobrancelha"
+                  />{" "}
+                  Sobrancelha
+               </Button>
+               <Button>
+                  <Image
+                     src="/massagem.svg"
+                     width={16}
+                     height={16}
+                     alt="Massagem"
+                  />{" "}
+                  Massagem
+               </Button>
+            </div>
+
+            {/* Banner */}
             <div className="relative mt-6 h-[150px] w-full">
                <Image
                   src="/banner-01.png"
@@ -91,6 +150,16 @@ const Home = async () => {
                   <BarbershopItem key={barbershop.id} barbershop={barbershop} />
                ))}
             </div>
+            <footer>
+               <Card>
+                  <CardContent>
+                     <p className="text-grey-400 text-sm">
+                        2024 Copyright{" "}
+                        <span className="font-bold">FSW Barber Shop</span>
+                     </p>
+                  </CardContent>
+               </Card>
+            </footer>
          </div>
       </>
    );
