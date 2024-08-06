@@ -1,5 +1,5 @@
-## Aula 0
-
+# Aula 0
+ 
 #### [x] Setup do banco de dados com Prisma.
 
 #### [x] Seeding do banco de dados (Upload de dados)
@@ -8,7 +8,7 @@
 
 #### [x] Tailwind e Shadcn/ui
 
-#### [] Git Hooks
+#### [x] Git Hooks
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
