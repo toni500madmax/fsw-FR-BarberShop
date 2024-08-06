@@ -55,12 +55,13 @@ const Home = async () => {
             {/* Ícones de busca rápida */}
             <div className="[&:: -webkit-scrollbar]:hidden mt-6 flex gap-3 overflow-x-scroll">
                {quicksearchOptions.map((option) => (
-                  <Button key={option.title}>
+                  <Button variant="secondary" key={option.title}>
                      <Image
                         src={option.imageUrl}
                         width={16}
                         height={16}
                         alt={option.title}
+                        className="mr-2"
                      />
                      {option.title}
                   </Button>
