@@ -5,14 +5,14 @@
 // Ícones
 import { SearchIcon } from "lucide-react";
 
+// Interface
+import { quicksearchOptions } from "./_constants/searchOptions";
+
 // Components
 import Header from "./_components/header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import { Card, CardContent } from "./_components/ui/card";
-import { Avatar } from "./_components/ui/avatar";
-import { Badge } from "./_components/ui/badge";
-import { AvatarImage } from "@radix-ui/react-avatar";
 
 // O next.js possui 4 componentes otimizados.
 import Image from "next/image";
@@ -20,6 +20,7 @@ import Image from "next/image";
 // Banco de dados
 import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
+import BookingItem from "./_components/booking-item";
 
 /* 
 ToDo: Implementar sistema de avaliação de barbearias.
@@ -53,55 +54,17 @@ const Home = async () => {
 
             {/* Ícones de busca rápida */}
             <div className="[&:: -webkit-scrollbar]:hidden mt-6 flex gap-3 overflow-x-scroll">
-               <Button>
-                  <Image
-                     src="/cabelo.svg"
-                     width={16}
-                     height={16}
-                     alt="Cabelo"
-                  />{" "}
-                  Cabelo
-               </Button>
-               <Button>
-                  <Image src="/barba.svg" width={16} height={16} alt="Barba" />{" "}
-                  Barba
-               </Button>
-               <Button>
-                  <Image
-                     src="/acabamento.svg"
-                     width={16}
-                     height={16}
-                     alt="Acabamento"
-                  />{" "}
-                  Acabamento
-               </Button>
-               <Button>
-                  <Image
-                     src="/hidratacao.svg"
-                     width={16}
-                     height={16}
-                     alt="Hidratação"
-                  />{" "}
-                  Hidratação
-               </Button>
-               <Button>
-                  <Image
-                     src="/sobrancelha.svg"
-                     width={16}
-                     height={16}
-                     alt="Sobrancelha"
-                  />{" "}
-                  Sobrancelha
-               </Button>
-               <Button>
-                  <Image
-                     src="/massagem.svg"
-                     width={16}
-                     height={16}
-                     alt="Massagem"
-                  />{" "}
-                  Massagem
-               </Button>
+               {quicksearchOptions.map((option) => (
+                  <Button key={option.title}>
+                     <Image
+                        src={option.imageUrl}
+                        width={16}
+                        height={16}
+                        alt={option.title}
+                     />
+                     {option.title}
+                  </Button>
+               ))}
             </div>
 
             {/* Banner */}
@@ -115,38 +78,14 @@ const Home = async () => {
             </div>
 
             {/* Agendamento */}
-            <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
-               Agendamentos
-            </h2>
-
-            <Card>
-               <CardContent className="flex justify-between p-0">
-                  {/* Esquerda */}
-                  <div className="flex flex-col gap-2 py-5 pl-5">
-                     <Badge>Comfirmado</Badge>
-                     <h3 className="font-bold">Corte de cabelo</h3>
-                     <div className="flex items-center gap-2">
-                        <Avatar className="h-6 w-6">
-                           <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                        </Avatar>
-                        <p className="text-sm">Barbearia FullStack</p>
-                     </div>
-                  </div>
-                  {/* Direita */}
-                  <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
-                     <p className="text-sm">Agosto</p>
-                     <p className="text-2xl">05</p>
-                     <p className="text-sm">20:00</p>
-                  </div>
-               </CardContent>
-            </Card>
+            <BookingItem />
 
             <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
                Recomendados
             </h2>
             {/* com uma classe do webkit que some com a barra de scroll */}
             <div className="[&:: -webkit-scrollbar]:hidden flex gap-4 overflow-auto">
-               {barbershop.map((barbershop) => (
+               {popularBarbershops.map((barbershop) => (
                   <BarbershopItem key={barbershop.id} barbershop={barbershop} />
                ))}
             </div>
