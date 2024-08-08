@@ -27,9 +27,8 @@ ToDo: Implementar sistema de avaliação de barbearias.
 */
 
 const Home = async () => {
-   // conexão com o banco de dados
+   // conexão com o banco de dados com a linguagem do Prisma.
    const barbershop = await db.barbershop.findMany({});
-
    const popularBarbershops = await db.barbershop.findMany({
       orderBy: {
          name: "desc",
@@ -86,13 +85,24 @@ const Home = async () => {
             </h2>
             {/* com uma classe do webkit que some com a barra de scroll */}
             <div className="[&:: -webkit-scrollbar]:hidden flex gap-4 overflow-auto">
+               {barbershop.map((barbershop) => (
+                  <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+               ))}
+            </div>
+
+            {/* Populares */}
+            <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
+               Populares
+            </h2>
+            {/* com uma classe do webkit que some com a barra de scroll */}
+            <div className="[&:: -webkit-scrollbar]:hidden flex gap-4 overflow-auto">
                {popularBarbershops.map((barbershop) => (
                   <BarbershopItem key={barbershop.id} barbershop={barbershop} />
                ))}
             </div>
-            <footer>
+            <footer className="mt-6">
                <Card>
-                  <CardContent>
+                  <CardContent className="py-3 text-center">
                      <p className="text-grey-400 text-sm">
                         2024 Copyright{" "}
                         <span className="font-bold">FSW Barber Shop</span>
