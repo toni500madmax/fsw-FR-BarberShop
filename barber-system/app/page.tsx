@@ -1,6 +1,5 @@
-// Determinação de renderização parcial no client side,
+// Determinação de renderização parcial no client side -> "use-client",
 // isso permite o dinamismo e hooks do React.
-"use client";
 
 // Ícones
 import { SearchIcon } from "lucide-react";
