@@ -1,7 +1,8 @@
-"use-client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import Footer from "./_components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,8 @@ export default function RootLayout({
          <body className={inter.className}>
             {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo header com menu. */}
             {children}
+            <Toaster />
+            <Footer />
          </body>
          {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo rodapé */}
       </html>

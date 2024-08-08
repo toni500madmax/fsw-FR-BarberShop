@@ -12,7 +12,6 @@ import { quicksearchOptions } from "./_constants/searchOptions";
 import Header from "./_components/header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
-import { Card, CardContent } from "./_components/ui/card";
 
 // O next.js possui 4 componentes otimizados.
 import Image from "next/image";
@@ -100,16 +99,6 @@ const Home = async () => {
                   <BarbershopItem key={barbershop.id} barbershop={barbershop} />
                ))}
             </div>
-            <footer className="mt-6">
-               <Card>
-                  <CardContent className="py-3 text-center">
-                     <p className="text-grey-400 text-sm">
-                        2024 Copyright{" "}
-                        <span className="font-bold">FSW Barber Shop</span>
-                     </p>
-                  </CardContent>
-               </Card>
-            </footer>
          </div>
       </>
    );

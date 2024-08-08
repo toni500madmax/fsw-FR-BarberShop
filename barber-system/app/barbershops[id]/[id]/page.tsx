@@ -1,7 +1,7 @@
+import PhoneItem from "@/app/_components/phone-item";
 import ServiceItem from "@/app/_components/service-item";
 import { Button } from "@/app/_components/ui/button";
 import { db } from "@/app/_lib/prisma";
-import { Barbershop } from "@prisma/client";
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,6 +31,7 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
 
    return (
       <>
+         {/* BANNER */}
          <div className="relative h-[250px] w-full">
             <Image
                src={barbershop?.imageUrl}
@@ -58,6 +59,7 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
             </Button>
          </div>
 
+         {/* TÍTULO */}
          <div className="border-b border-solid p-5">
             <h1 className="mb-3 text-xl font-bold">{barbershop?.name}</h1>
             <div className="mb-2 flex items-center gap-2">
@@ -70,6 +72,7 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
             </div>
          </div>
 
+         {/* DESCRIÇÃO */}
          <div className="space-y-2 border-b border-solid p-5">
             <h2 className="font-bol text-grey-400 text-xs uppercase">
                Sobre nós
@@ -77,6 +80,7 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
             <p className="text-justify text-sm">{barbershop?.description}</p>
          </div>
 
+         {/* SERVIÇOS */}
          <div className="space-y-3 p-5">
             <h2 className="font-bol text-grey-400 text-xs uppercase">
                Serviços
@@ -87,6 +91,13 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
                ))}
             </div>
          </div>
+
+         {/* CONTATO */}
+         <p className="space-y-3 p-5">
+            {barbershop.phones.map((phone) => (
+               <PhoneItem key={phone} phone={phone} />
+            ))}
+         </p>
       </>
    );
 };
