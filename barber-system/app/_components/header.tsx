@@ -5,16 +5,9 @@ import { CalendarIcon, HomeIcon, LogOutIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
-import {
-   Sheet,
-   SheetContent,
-   SheetHeader,
-   SheetTitle,
-   SheetTrigger,
-} from "./ui/sheet";
-import { quicksearchOptions } from "../_constants/searchOptions";
-import { Avatar, AvatarImage } from "./ui/avatar";
-import Link from "next/link";
+import { Sheet, SheetTrigger } from "./ui/sheet";
+
+import SidebarSheet from "./sidebar-sheet";
 
 const Header = () => {
    return (
@@ -35,66 +28,7 @@ const Header = () => {
                      </Button>
                   </SheetTrigger>
                   {/* Janela lateral do menu */}
-                  <SheetContent>
-                     {/* Header */}
-                     <SheetHeader>
-                        <SheetTitle className="text-left">Menu</SheetTitle>
-                     </SheetHeader>
-
-                     <div className="flex items-center gap-3 border-b border-solid py-5">
-                        <Avatar>
-                           <AvatarImage src="" />
-                        </Avatar>
-
-                        <div>
-                           <p className="font-bold">Felipe Rocha</p>
-                           <p className="text-sm">felipe.email@email.com</p>
-                        </div>
-                     </div>
-
-                     {/* Body */}
-                     <div className="flex flex-col gap-1 border-b border-solid py-5">
-                        <Button
-                           className="justify-start gap-2"
-                           variant="ghost"
-                           asChild
-                        >
-                           <Link href="/">
-                              <HomeIcon size={18} />
-                              Início
-                           </Link>
-                        </Button>
-                        <Button className="justify-start gap-2" variant="ghost">
-                           <CalendarIcon size={18} />
-                           Agendamento
-                        </Button>
-                     </div>
-                     {/* Footer */}
-                     <div className="flex flex-col gap-1 border-b border-solid py-5">
-                        {quicksearchOptions.map((option) => (
-                           <Button
-                              key={option.title}
-                              className="justify-start gap-2"
-                              variant="ghost"
-                           >
-                              <Image
-                                 src={option.imageUrl}
-                                 height={18}
-                                 width={18}
-                                 alt={option.title}
-                              />
-                              {option.title}
-                           </Button>
-                        ))}
-                     </div>
-
-                     <div className="flex flex-col gap-1 border-b border-solid py-5">
-                        <Button variant="ghost" className="justify-start">
-                           <LogOutIcon size={18} />
-                           Sair da conta
-                        </Button>
-                     </div>
-                  </SheetContent>
+                  <SidebarSheet />
                </Sheet>
             </CardContent>
          </Card>
