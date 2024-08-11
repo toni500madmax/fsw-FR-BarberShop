@@ -1,6 +1,6 @@
 "use client";
 
-import { SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { quicksearchOptions } from "../_constants/searchOptions";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -94,22 +94,24 @@ const SidebarSheet = () => {
          {/* Footer */}
          <div className="flex flex-col gap-1 border-b border-solid py-5">
             {quicksearchOptions.map((option) => (
-               <Button
-                  key={option.title}
-                  className="justify-start gap-2"
-                  variant="ghost"
-                  asChild
-               >
-                  <Link href={`/barbershops?service=${option.title}`}>
-                     <Image
-                        src={option.imageUrl}
-                        height={18}
-                        width={18}
-                        alt={option.title}
-                     />
-                     {option.title}
-                  </Link>
-               </Button>
+               /* Este componente SheetClose diz que ao clicar em um botão ele fecha a sidebar */
+               <SheetClose key={option.title} asChild>
+                  <Button
+                     className="justify-start gap-2"
+                     variant="ghost"
+                     asChild
+                  >
+                     <Link href={`/barbershops?service=${option.title}`}>
+                        <Image
+                           src={option.imageUrl}
+                           height={18}
+                           width={18}
+                           alt={option.title}
+                        />
+                        {option.title}
+                     </Link>
+                  </Button>
+               </SheetClose>
             ))}
          </div>
          {/* Botão logout */}
