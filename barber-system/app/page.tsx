@@ -19,6 +19,7 @@ import Image from "next/image";
 import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import BookingItem from "./_components/booking-item";
+import Search from "./_components/search";
 
 /* 
 ToDo: Implementar sistema de avaliação de barbearias.
@@ -42,11 +43,8 @@ const Home = async () => {
             <p>Segunda-feira, 06 de agosto.</p>
 
             {/* Busca */}
-            <div className="mt-6 flex items-center gap-2 space-x-2">
-               <Input placeholder="Faça sua busca..." />
-               <Button>
-                  <SearchIcon />
-               </Button>
+            <div className="mt-6">
+               <Search />
             </div>
 
             {/* Ícones de busca rápida */}

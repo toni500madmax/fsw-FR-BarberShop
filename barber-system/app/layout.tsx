@@ -22,10 +22,10 @@ export default function RootLayout({
          <body className={inter.className}>
             <AuthProvider>
                {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo header com menu. */}
-               {children}
-               <Toaster />
+               <div className="flex-1">{children}</div>
                <Footer />
             </AuthProvider>
+            <Toaster />
          </body>
          {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo rodapé */}
       </html>
