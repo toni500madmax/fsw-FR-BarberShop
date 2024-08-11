@@ -1,16 +1,12 @@
 // Determinação de renderização parcial no client side -> "use-client",
 // isso permite o dinamismo e hooks do React.
 
-// Ícones
-import { SearchIcon } from "lucide-react";
-
 // Interface
 import { quicksearchOptions } from "./_constants/searchOptions";
 
 // Components
 import Header from "./_components/header";
 import { Button } from "./_components/ui/button";
-import { Input } from "./_components/ui/input";
 
 // O next.js possui 4 componentes otimizados.
 import Image from "next/image";
@@ -20,6 +16,7 @@ import { db } from "./_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
+import Link from "next/link";
 
 /* 
 ToDo: Implementar sistema de avaliação de barbearias.
@@ -37,7 +34,7 @@ const Home = async () => {
    return (
       <>
          <Header />
-         {/* Texto */}
+
          <div className="p-5">
             <h2 className="text-xl font-bold">Olá, Felipe!</h2>
             <p>Segunda-feira, 06 de agosto.</p>
@@ -50,15 +47,17 @@ const Home = async () => {
             {/* Ícones de busca rápida */}
             <div className="[&:: -webkit-scrollbar]:hidden mt-6 flex gap-3 overflow-x-scroll">
                {quicksearchOptions.map((option) => (
-                  <Button variant="secondary" key={option.title}>
-                     <Image
-                        src={option.imageUrl}
-                        width={16}
-                        height={16}
-                        alt={option.title}
-                        className="mr-2"
-                     />
-                     {option.title}
+                  <Button variant="secondary" key={option.title} asChild>
+                     <Link href={`/barbershops?service=${option.title}`}>
+                        <Image
+                           src={option.imageUrl}
+                           width={16}
+                           height={16}
+                           alt={option.title}
+                           className="mr-2"
+                        />
+                        {option.title}
+                     </Link>
                   </Button>
                ))}
             </div>

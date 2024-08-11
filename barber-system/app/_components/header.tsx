@@ -8,18 +8,21 @@ import { Button } from "./ui/button";
 import { Sheet, SheetTrigger } from "./ui/sheet";
 
 import SidebarSheet from "./sidebar-sheet";
+import Link from "next/link";
 
 const Header = () => {
    return (
       <>
          <Card>
             <CardContent className="flex flex-row items-center justify-between p-5">
-               <Image
-                  src="/logo.png"
-                  height={18}
-                  width={120}
-                  alt="FSW Barber Shop"
-               />
+               <Link href="/">
+                  <Image
+                     src="/logo.png"
+                     height={18}
+                     width={120}
+                     alt="FSW Barber Shop"
+                  />
+               </Link>
                <Sheet>
                   {/* Botão hamburguer */}
                   <SheetTrigger asChild>
