@@ -1,5 +1,5 @@
 // Ícones
-import { CalendarIcon, HomeIcon, LogOutIcon, MenuIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 
 // Componentes
 import Image from "next/image";

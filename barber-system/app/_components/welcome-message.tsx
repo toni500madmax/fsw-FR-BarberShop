@@ -1,7 +1,6 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { ReactNode } from "react";
 
 const WelcomeMessage = () => {
    const { data } = useSession();

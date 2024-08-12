@@ -17,7 +17,6 @@ import BarbershopItem from "./_components/barbershop-item";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import WelcomeMessage from "./_components/welcome-message";
 
 /* 
