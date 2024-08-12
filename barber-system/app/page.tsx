@@ -19,11 +19,15 @@ import Search from "./_components/search";
 import Link from "next/link";
 import WelcomeMessage from "./_components/welcome-message";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "./_lib/auth";
+
 /* 
 ToDo: Implementar sistema de avaliação de barbearias.
 */
 
 const Home = async () => {
+   const session = await getServerSession(authOptions);
    // conexão com o banco de dados com a linguagem do Prisma.
    const barbershop = await db.barbershop.findMany({});
    const popularBarbershops = await db.barbershop.findMany({
@@ -31,6 +35,27 @@ const Home = async () => {
          name: "desc",
       },
    });
+
+   const ConfirmedBookings = session?.user
+      ? await db.booking.findMany({
+           where: {
+              userId: (session.user as any).id,
+              date: {
+                 gte: new Date(),
+              },
+           },
+           include: {
+              service: {
+                 include: {
+                    barbershop: true,
+                 },
+              },
+           },
+           orderBy: {
+              date: "asc",
+           },
+        })
+      : [];
 
    return (
       <>
@@ -63,7 +88,7 @@ const Home = async () => {
             </div>
 
             {/* Banner */}
-            <div className="relative mt-6 h-[150px] w-full">
+            <div className="relative my-6 h-[150px] w-full">
                <Image
                   src="/banner-01.png"
                   alt="Agende nos melhores com FSW Barber Shop"
@@ -73,7 +98,14 @@ const Home = async () => {
             </div>
 
             {/* Agendamento */}
-            <BookingItem />
+            <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
+               Agendamentos
+            </h2>
+            <div className="[&:: -webkit-scrollbar]:hidden flex gap-3 overflow-x-auto">
+               {ConfirmedBookings.map((booking) => (
+                  <BookingItem key={booking.id} booking={booking} />
+               ))}
+            </div>
 
             <h2 className="text-grey-400 mb-3 mt-6 text-xs font-bold uppercase">
                Recomendados
