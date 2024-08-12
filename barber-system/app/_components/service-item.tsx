@@ -52,9 +52,9 @@ const TIME_LIST = [
 ];
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
-/* 
+   /* 
 ToDo: Não exibir horários que já passaram.
-ToDo: Salvar o agendamento para o usuário logado.
+ToDo: Pedir login ao clicar em reservar se não estiver logado.
 */
 
    const { data } = useSession();
@@ -82,7 +82,7 @@ ToDo: Salvar o agendamento para o usuário logado.
          });
          await createBooking({
             serviceId: service.id,
-            userId: "clzol31xo0000eqvlwlmaft7b",
+            userId: (data?.user as any).id,
             date: newDate,
          });
          toast.success("Reserva criada com sucesso!");
@@ -210,9 +210,12 @@ ToDo: Salvar o agendamento para o usuário logado.
                               </Card>
                            </div>
                         )}
-                        <SheetFooter className="px-5">
+                        <SheetFooter className="mt-5 px-5">
                            <SheetClose asChild>
-                              <Button onClick={handleCreateBooking}>
+                              <Button
+                                 onClick={handleCreateBooking}
+                                 disabled={!selectedDay || !selectedTime}
+                              >
                                  Confirmar
                               </Button>
                            </SheetClose>

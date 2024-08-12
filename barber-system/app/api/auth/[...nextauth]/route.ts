@@ -12,6 +12,16 @@ const handler = nextAuth({
          clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       }),
    ],
+   // Quando o hook useSession() é chamado, esta função irá executar
+   callbacks: {
+      async session({ session, user }) {
+         session.user = {
+            ...session.user,
+            id: user.id,
+         } as any;
+         return session;
+      },
+   },
 });
 
 export { handler as GET, handler as POST };
