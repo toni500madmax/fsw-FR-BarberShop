@@ -1,6 +1,6 @@
 "use client";
 
-import { Barbershop, BarbershopService } from "@prisma/client";
+import { Barbershop, BarbershopService, Booking } from "@prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "./ui/button";
@@ -12,15 +12,15 @@ import {
    SheetFooter,
    SheetHeader,
    SheetTitle,
-   SheetTrigger,
 } from "./ui/sheet";
 import { Calendar } from "./ui/calendar";
 import { ptBR } from "date-fns/locale";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBooking } from "../_actions/create-booking";
 import { useSession } from "next-auth/react";
-import { set, setMinutes } from "date-fns";
+import { addDays, set } from "date-fns";
 import { toast } from "sonner";
+import { getBookings } from "../_actions/get-booking";
 
 interface ServiceItemProps {
    service: BarbershopService;
@@ -62,6 +62,14 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
    const [selectedTime, setSelectedTime] = useState<string | undefined>(
       undefined,
    );
+   const [bookingSheetsIsOpen, setBookingSheetsIsOpen] = useState(false);
+
+   const handleBookingSheetOpenChange = () => {
+      setSelectedDay(undefined);
+      setSelectedTime(undefined);
+      setDayBookings([]);
+      setBookingSheetsIsOpen(false);
+   };
 
    const handleDateSelect = (date: Date | undefined) => {
       setSelectedDay(date);
@@ -85,6 +93,7 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
             userId: (data?.user as any).id,
             date: newDate,
          });
+         handleBookingSheetOpenChange();
          toast.success("Reserva criada com sucesso!");
       } catch (err) {
          console.log(err);
@@ -92,12 +101,44 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
       }
    };
 
+   const getTimeList = (bookings: Booking[]) => {
+      return TIME_LIST.filter((time) => {
+         const hour = Number(time.split(":")[0]);
+         const minute = Number(time.split(":")[1]);
+
+         const hasBookingOnCurrentTime = bookings.some(
+            (booking) =>
+               booking.date.getHours() === hour &&
+               booking.date.getMinutes() === minute,
+         );
+
+         if (hasBookingOnCurrentTime) {
+            return false;
+         }
+         return true;
+      });
+   };
+
+   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
+
+   useEffect(() => {
+      const fetch = async () => {
+         if (!selectedDay) return;
+         const bookings = await getBookings({
+            date: selectedDay,
+            serviceId: service.id,
+         });
+         setDayBookings(bookings);
+      };
+      fetch();
+   }, [selectedDay, service.id, dayBookings]);
+
    if (!service) {
       return notFound();
    }
    return (
       <Card>
-         <CardContent className="flex items-center gap-2">
+         <CardContent className="flex items-center gap-2 py-3">
             <div className="relative max-h-[110px] min-h-[110px] min-w-[110px]">
                <Image
                   src={service.imageUrl}
@@ -118,12 +159,18 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
                         currency: "BRL",
                      }).format(Number(service.price))}
                   </p>
-                  <Sheet>
-                     <SheetTrigger asChild>
-                        <Button variant="secondary" size="sm">
-                           Reservar
-                        </Button>
-                     </SheetTrigger>
+                  <Sheet
+                     open={bookingSheetsIsOpen}
+                     onOpenChange={handleBookingSheetOpenChange}
+                  >
+                     <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => setBookingSheetsIsOpen(true)}
+                     >
+                        Reservar
+                     </Button>
+
                      <SheetContent className="px-0">
                         <SheetHeader>
                            <SheetTitle>Fazer Reserva</SheetTitle>
@@ -134,6 +181,7 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
                               locale={ptBR}
                               selected={selectedDay}
                               onSelect={handleDateSelect}
+                              fromDate={addDays(new Date(), 1)}
                               styles={{
                                  head_cell: {
                                     width: "100%",
@@ -158,7 +206,7 @@ ToDo: Pedir login ao clicar em reservar se não estiver logado.
                         </div>
                         {selectedDay && (
                            <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
-                              {TIME_LIST.map((time) => (
+                              {getTimeList(dayBookings).map((time) => (
                                  <Button
                                     key={time}
                                     variant={
