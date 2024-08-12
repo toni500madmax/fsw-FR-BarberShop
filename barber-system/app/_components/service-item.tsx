@@ -53,7 +53,27 @@ const TIME_LIST = [
    "18:00",
 ];
 
+const getTimeList = (bookings: Booking[]) => {
+   return TIME_LIST.filter((time) => {
+      const hour = Number(time.split(":")[0]);
+      const minute = Number(time.split(":")[1]);
+
+      const hasBookingOnCurrentTime = bookings.some(
+         (booking) =>
+            booking.date.getHours() === hour &&
+            booking.date.getMinutes() === minute,
+      );
+
+      if (hasBookingOnCurrentTime) {
+         return false;
+      }
+      return true;
+   });
+};
+
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
+   // ToDo: não mostrar horários que já passaram no dia;
+
    const { data } = useSession();
    const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
    const [selectedTime, setSelectedTime] = useState<string | undefined>(
@@ -96,24 +116,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
          console.log(err);
          toast.error("Erro ao criar reserva!");
       }
-   };
-
-   const getTimeList = (bookings: Booking[]) => {
-      return TIME_LIST.filter((time) => {
-         const hour = Number(time.split(":")[0]);
-         const minute = Number(time.split(":")[1]);
-
-         const hasBookingOnCurrentTime = bookings.some(
-            (booking) =>
-               booking.date.getHours() === hour &&
-               booking.date.getMinutes() === minute,
-         );
-
-         if (hasBookingOnCurrentTime) {
-            return false;
-         }
-         return true;
-      });
    };
 
    const [dayBookings, setDayBookings] = useState<Booking[]>([]);
@@ -188,9 +190,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                                  locale={ptBR}
                                  selected={selectedDay}
                                  onSelect={handleDateSelect}
-                                 // formDate permite dar um limite de data,
-                                 // neste exemplo será uma reserva antecipada de 1 dia
-                                 fromDate={addDays(new Date(), 1)}
+                                 // formDate permite dar um limite de data a partir da.
+                                 fromDate={addDays(new Date(), 0)}
                                  styles={{
                                     head_cell: {
                                        width: "100%",
