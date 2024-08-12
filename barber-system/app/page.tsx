@@ -17,6 +17,8 @@ import BarbershopItem from "./_components/barbershop-item";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import WelcomeMessage from "./_components/welcome-message";
 
 /* 
 ToDo: Implementar sistema de avaliação de barbearias.
@@ -36,8 +38,7 @@ const Home = async () => {
          <Header />
 
          <div className="p-5">
-            <h2 className="text-xl font-bold">Olá, Felipe!</h2>
-            <p>Segunda-feira, 06 de agosto.</p>
+            <WelcomeMessage />
 
             {/* Busca */}
             <div className="mt-6">

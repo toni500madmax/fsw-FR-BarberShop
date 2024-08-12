@@ -115,13 +115,13 @@ const SidebarSheet = () => {
             ))}
          </div>
          {/* Botão logout */}
-         <div className="flex flex-col gap-1 border-b border-solid py-5">
+         <div className="flex flex-col items-center justify-between gap-1 border-b border-solid py-5">
             <Button
                variant="ghost"
                className="justify-start"
                onClick={handleLogOutFromGoogleClick}
             >
-               <LogOutIcon size={18} />
+               <LogOutIcon size={18} className="mr-5" />
                Sair da conta
             </Button>
          </div>

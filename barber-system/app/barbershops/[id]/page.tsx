@@ -8,6 +8,7 @@ import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Barbershop } from "@prisma/client";
 
 interface BarbershopProps {
    params: {
@@ -95,7 +96,11 @@ const BarbershopPage = async ({ params }: BarbershopProps) => {
             </h2>
             <div className="space-y-3">
                {barbershop.services.map((service) => (
-                  <ServiceItem key={service.id} service={service} />
+                  <ServiceItem
+                     barbershop={barbershop}
+                     key={service.id}
+                     service={service}
+                  />
                ))}
             </div>
          </div>
