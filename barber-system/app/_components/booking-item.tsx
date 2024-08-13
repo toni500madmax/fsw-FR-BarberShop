@@ -66,8 +66,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
       <>
          <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
             <SheetTrigger>
-               <Card className="min-w-[90%]">
-                  <CardContent className="flex justify-between p-0">
+               <Card className="w-[360px]">
+                  <CardContent className="flex w-full justify-between p-0">
                      {/* Esquerda */}
                      <div className="flex flex-col gap-2 py-5 pl-5">
                         <Badge
@@ -174,61 +174,58 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                      ))}
                   </div>
                </div>
-               <SheetFooter>
+               <SheetFooter className="mt-6">
                   <div className="flex items-center gap-3">
-                     <SheetClose>
+                     <SheetClose asChild>
                         <Button variant="outline" className="w-full">
                            Voltar
                         </Button>
-                        {isConfirmed && (
-                           <>
-                              <Dialog>
-                                 <DialogTrigger>
-                                    <Button
-                                       variant="destructive"
-                                       className="w-full"
-                                    >
-                                       Cancelar Reserva
-                                    </Button>
-                                 </DialogTrigger>
-                                 <DialogContent>
-                                    <DialogHeader>
-                                       <DialogTitle>
-                                          Deseja cancelar esse agendamento ?
-                                       </DialogTitle>
-                                       <DialogDescription>
-                                          Ao cancelar o agendamento será
-                                          excluído, porém você ainda poderá
-                                          marcar outra data.
-                                       </DialogDescription>
-                                    </DialogHeader>
-                                    <DialogFooter className="flex flex-row gap-3">
-                                       <DialogClose asChild>
-                                          <Button
-                                             variant="secondary"
-                                             className="w-full"
-                                          >
-                                             Voltar
-                                          </Button>
-                                          <DialogClose
-                                             className="w-full"
-                                             asChild
-                                          >
-                                             <Button
-                                                variant="destructive"
-                                                className="w-full"
-                                                onClick={handleCancelBooking}
-                                             >
-                                                Confirmar
-                                             </Button>
-                                          </DialogClose>
-                                       </DialogClose>
-                                    </DialogFooter>
-                                 </DialogContent>
-                              </Dialog>
-                           </>
-                        )}
                      </SheetClose>
+                     {isConfirmed && (
+                        <>
+                           <Dialog>
+                              <DialogTrigger className="w-full">
+                                 <Button
+                                    variant="destructive"
+                                    className="w-full"
+                                 >
+                                    Cancelar Reserva
+                                 </Button>
+                              </DialogTrigger>
+                              <DialogContent className="w-[90%]">
+                                 <DialogHeader>
+                                    <DialogTitle>
+                                       Deseja cancelar esse agendamento ?
+                                    </DialogTitle>
+                                    <DialogDescription>
+                                       Ao cancelar o agendamento será excluído,
+                                       porém você ainda poderá marcar outra
+                                       data.
+                                    </DialogDescription>
+                                 </DialogHeader>
+                                 <DialogFooter className="flex flex-row gap-3">
+                                    <DialogClose asChild className="w-full">
+                                       <Button
+                                          variant="secondary"
+                                          className="w-full"
+                                       >
+                                          Voltar
+                                       </Button>
+                                    </DialogClose>
+                                    <DialogClose className="w-full">
+                                       <Button
+                                          variant="destructive"
+                                          onClick={handleCancelBooking}
+                                          className="w-full"
+                                       >
+                                          Confirmar
+                                       </Button>
+                                    </DialogClose>
+                                 </DialogFooter>
+                              </DialogContent>
+                           </Dialog>
+                        </>
+                     )}
                   </div>
                </SheetFooter>
             </SheetContent>

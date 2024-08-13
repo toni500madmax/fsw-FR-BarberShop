@@ -184,7 +184,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                            <SheetHeader>
                               <SheetTitle>Fazer Reserva</SheetTitle>
                            </SheetHeader>
-                           <div className="py-5">
+                           <div className="border-b border-solid py-5">
                               <Calendar
                                  mode="single"
                                  locale={ptBR}
@@ -193,25 +193,28 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                                  // formDate permite dar um limite de data a partir da.
                                  fromDate={addDays(new Date(), 0)}
                                  styles={{
-                                    head_cell: {
-                                       width: "100%",
-                                       textTransform: "capitalize",
-                                    },
-                                    button: {
-                                       width: "100%",
-                                    },
-                                    nav_button_previous: {
-                                       width: "32px",
-                                       height: "32px",
-                                    },
-                                    nav_button_next: {
-                                       width: "32px",
-                                       height: "32px",
-                                    },
-                                    caption: {
-                                       textTransform: "capitalize",
-                                    },
-                                 }}
+                        head_cell: {
+                          width: "100%",
+                          textTransform: "capitalize",
+                        },
+                        cell: {
+                          width: "100%",
+                        },
+                        button: {
+                          width: "100%",
+                        },
+                        nav_button_previous: {
+                          width: "32px",
+                          height: "32px",
+                        },
+                        nav_button_next: {
+                          width: "32px",
+                          height: "32px",
+                        },
+                        caption: {
+                          textTransform: "capitalize",
+                        },
+                      }}
                               />
                            </div>
                            {selectedDay && (
