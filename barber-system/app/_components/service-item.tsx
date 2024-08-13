@@ -2,7 +2,7 @@
 
 import { Barbershop, BarbershopService, Booking } from "@prisma/client"
 import Image from "next/image"
-import { notFound } from "next/navigation"
+import { notFound, useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import {
@@ -83,9 +83,8 @@ const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
 }
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
-  // ToDo: não mostrar horários que já passaram no dia;
-
   const { data } = useSession()
+  const router = useRouter()
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
@@ -140,7 +139,12 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         date: selectedDate,
       })
       handleBookingSheetOpenChange()
-      toast.success("Reserva criada com sucesso!")
+      toast.success("Reserva criada com sucesso!", {
+        action: {
+          label: "Ver agendamentos",
+          onClick: () => router.push("/bookings"),
+        },
+      })
     } catch (err) {
       console.log(err)
       toast.error("Erro ao criar reserva!")
