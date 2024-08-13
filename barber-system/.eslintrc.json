@@ -2,11 +2,5 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "no-unused-vars": "error"
-  },
-  "eslint.options": {
-    "object-shorthand": [
-      "error",
-      "always"
-    ]
-  },
+  }
 }
