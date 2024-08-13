@@ -18,11 +18,11 @@ const WelcomeMessage = () => {
       "Novembro",
       "Dezembro",
    ];
-   const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"];
+   const days = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
 
    const date = new Date();
    const month = months[date.getMonth()];
-   const day = days[date.getDay()];
+   const day = days[date.getDay()-1];
    const dayOfMonth = date.getDate();
 
    return data ? (

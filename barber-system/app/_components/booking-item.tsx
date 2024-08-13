@@ -97,7 +97,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                            {formatDate(booking.date, "dd", { locale: ptBR })}
                         </p>
                         <p className="text-sm">
-                           {formatDate(booking.date, "HH:dd", { locale: ptBR })}
+                           {formatDate(booking.date, "HH:mm", { locale: ptBR })}
                         </p>
                      </div>
                   </CardContent>

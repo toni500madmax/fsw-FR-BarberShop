@@ -23,7 +23,7 @@ export default function RootLayout({
             <AuthProvider>
                {/* Aqui pode colocar layouts que são comuns entre as páginas. exemplo header com menu. */}
                <div className="flex-1">{children}</div>
-               <Footer />
+            <Footer />
             </AuthProvider>
             <Toaster />
          </body>
